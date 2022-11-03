@@ -13,8 +13,8 @@ import { Usuario } from './entities/docto.entity';
 import { DoctoService } from './docto.service';
 import { LoggerService } from '../logger/logger.service';
 
-@Controller('usuario')
-@ApiTags('usuario')
+@Controller('valida')
+@ApiTags('valida')
 export class DoctoController {
   constructor(
     private doctoService: DoctoService,
@@ -35,11 +35,11 @@ export class DoctoController {
     return this.doctoService.create(doctoDTO);
   }
 
-  @Get(':codigo')
   @ApiResponse({ status: 200, description: 'Gets one codigo', type: Usuario })
-  @ApiResponse({ status: 404, description: 'Usuario not found' })
+  @ApiResponse({ status: 404, description: 'Usuario not found by codigo' })
+  @Get(':codigo')
   findOne(@Param('codigo') codigo: string): Promise<Usuario> {
-    this.logger.info('Getting usuario ' + codigo);
+    this.logger.info('Getting un usuario ' + codigo);
     return this.doctoService.findOne(codigo);
   }
 
@@ -49,12 +49,12 @@ export class DoctoController {
     type: Usuario,
     isArray: true,
   })
-  /*
+  
   @Get()
   findAll(): Promise<Usuario[]> {
     return this.doctoService.findAll();
   }
-  */
+  
 
   @Put(':codigo')
   @ApiResponse({
